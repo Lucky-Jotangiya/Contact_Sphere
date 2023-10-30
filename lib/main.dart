@@ -34,7 +34,17 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("please waiting....")),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(child: Center(child: CircularProgressIndicator())),
+          
+          Center(child: Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: Text("please waiting...."),
+          )),
+        ],
+      ),
     );
   }
 

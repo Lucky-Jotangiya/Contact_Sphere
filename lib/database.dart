@@ -13,7 +13,7 @@ class Db {
       version: 1,
       onCreate: (db, version) {
         String table1 =
-            "create table table1 (id integer primary key autoincrement,email Text,password Text)";
+            "create table table1 (id integer primary key autoincrement,user Text,email Text,password Text)";
         db.execute(table1);
 
         String table2 =
@@ -24,7 +24,7 @@ class Db {
     return database;
   }
 
-  Future<bool> insertData(String email, String pass) async {
+  Future<bool> insertData(String user, String email, String pass) async {
 
     Database database = Splash.db!;
 
@@ -32,7 +32,7 @@ class Db {
     List<Map> list = await database.rawQuery(check);
 
     if(list.length == 0){
-      String insertQry = "insert into table1 (email,password) values ('$email','$pass')";
+      String insertQry = "insert into table1 (user,email,password) values ('$user','$email','$pass')";
       int a = await database.rawInsert(insertQry);
       return true;
     }
@@ -79,5 +79,12 @@ class Db {
 
     String update = "update table2 set name = '$name' , number = '$number' where id = '$id'";
     await database.rawUpdate(update);
+  }
+
+  Future<List<Map>> userDetail(Database database, int id) async {
+    String select = "select * from table1 where id = '$id'";
+    List<Map> list = await database.rawQuery(select);
+    print(list);
+    return list;
   }
 }
